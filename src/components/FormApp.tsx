@@ -11,6 +11,8 @@ import Radio from "./Radio";
 import SimpleSearch from "./SimpleSearch";
 import CategoryCheckBox from "./CategoryCheckBox";
 import { Categories, Payload } from "../utils/types";
+import RadioSelect from "./RadioSelect";
+import CategoryItemSelect from "./CategoryItemSelect";
 
 const validationSchema = yup.object({
   name: yup
@@ -106,28 +108,10 @@ export default class FormApp extends Component<Props> {
                   : null
                 }
                 <div className="row radio">
-                  <div className="radio-select">
-                    <label className="b-contain">
-                      <span>{'Apply to all items in collection'}</span>
-                      <Radio
-                        name="applied_to"
-                        type="radio"
-                        value="all"
-                      />
-                      <div className="b-input radio"></div>
-                    </label>
-                  </div>
-                  <div className="radio-select">
-                    <label className="b-contain">
-                      <span>{'Apply to specific items'}</span>
-                      <Radio
-                        name="applied_to"
-                        type="radio"
-                        value="some"
-                      />
-                      <div className="b-input radio"></div>
-                    </label>
-                  </div>
+                  <RadioSelect selections={[
+                    {title: 'Apply to all items in collection',name: "applied_to", value: "all"},
+                    {title: 'Apply to specific items', name: "applied_to", value: "some"},
+                  ]} />
                   {(errors.applied_to && touched.applied_to) ?
                     <>
                       <div className="error-text">
@@ -152,47 +136,7 @@ export default class FormApp extends Component<Props> {
                   {({ arrayHelpers }: any) => {
 
                     return (
-                      <div className="all-items">
-                        {values.applied_to !== 'some' ? null : Object.keys(values.search.trim() !== '' ? values.searched : categories).map((category, index) => {
-                          const items = values.search.trim() !== '' ? values.searched : categories
-
-                          return (<div key={index}>
-                            <div className="category">
-                              <label className="b-contain">
-                                <span className="item-name">
-                                  {category === 'empty' ? null : category}
-                                </span>
-                                <CategoryCheckBox
-                                  name={`${category}`}
-                                  type="checkbox"
-                                />
-                                <div className="b-input"></div>
-                              </label>
-                            </div>
-                            <div className="items-list">
-                              {items[category] ? items[category].map((item: any, index: number) => {
-                                return (
-                                  <div key={index} className="item">
-                                    <label className="b-contain">
-                                      <span className="item-name">
-                                        {item.name}
-                                      </span>
-                                      <Field
-                                        name={`applicable_items`}
-                                        type="checkbox"
-                                        value={`${item.id}`}
-                                      />
-                                      <div className="b-input"></div>
-                                    </label>
-
-                                  </div>
-                                )
-                              }) : null}
-                            </div>
-                          </div>)
-                        })}
-
-                      </div>
+                      <CategoryItemSelect values={values} categories={categories}  />
                     )
                   }}
                 </FieldArray>
