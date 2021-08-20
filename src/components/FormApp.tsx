@@ -40,7 +40,7 @@ export default class FormApp extends Component<Props> {
     }
   }
   render() {
-    const { categories, toggleForm, handleSubmit }: any = this.props;
+    const { categories, toggleForm, handleSubmit }: Props = this.props;
     return (
       <div className="form">
         <Formik

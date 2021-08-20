@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 
 const Radio = (props: any) => {
     const {
-        values: { categories, applicable_items, applied_to },
+        values: { categories },
         touched,
         setFieldValue,
         setFieldTouched
@@ -24,11 +24,8 @@ const Radio = (props: any) => {
             setFieldValue("applicable_items", [].concat(...Object.keys(categories).map((v, i) => categories[v])).map((v: any) => `${v.id}`));
         } else {
             setFieldValue("applied_to", "some");
-
         }
-
     }
-
 
     return (
         <>
