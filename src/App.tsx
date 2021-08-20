@@ -5,19 +5,28 @@ import { useFetcher, useResource } from 'rest-hooks';
 import ItemResource from './utils/mocks';
 
 import FormApp from './components/FormApp';
-import { Categories, isCategory, Payload } from './utils/types';
+import { Categories, isCategory, isIterable, Payload } from './utils/types';
 
 
 const sortCategoryItems = (data: Categories[]): Categories => {
   // TODO case new_data to MinCategories
-  const new_data: any = {};
+  const new_data: Categories = {};
   data.forEach((item, index: number) => {
     if (isCategory(item.category)) {
       const name = item.category.name;
-
-      new_data[name] = new_data[name] ? [...new_data[name], { id: item.id, name: item.name, category: item.category }] : [{ id: item.id, name: item.name, category: item.category }]
+      const  category = new_data[name];
+      if (isIterable(category)) {
+        new_data[name] = [...category, { id: item.id, name: item.name, category: item.category }]
+      } else {
+        new_data[name] = [{ id: item.id, name: item.name, category: item.category }]
+      }
     } else {
-      new_data['empty'] = new_data['empty'] ? [...new_data['empty'], { id: item.id, name: item.name, category: item.category }] : [{ id: item.id, name: item.name, category: item.category }]
+      const  category = new_data['empty'];
+      if (isIterable(category)) {
+        new_data['empty'] = [...category, { id: item.id, name: item.name, category: item.category }]
+      } else {
+        new_data['empty'] = [{ id: item.id, name: item.name, category: item.category }]
+      }
     }
   })
 

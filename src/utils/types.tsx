@@ -11,8 +11,8 @@ export interface Payload {
     applicable_items: number[]
 }
 
-type Category = {
-    id?: number,
+export type Category = {
+    id: number,
     name: string,
     category?: {
         id?: number,
@@ -32,13 +32,13 @@ export interface FormValues {
 }
 
 export const isCategory = (
-    category: number | string | Category | object | null | boolean | Array<object>
+    category: number | string | Category | object | null | boolean | Array<object> | Categories
 ): category is Category => {
     return category?category.hasOwnProperty('name'):false;
 };
 
 export const isIterable = (
-    obj: number | string | Category | object | null | boolean | Array<object>
+    obj: number | string | Category | object | null | boolean | Array<object> 
 ): obj is Array<object> => {
     return Symbol.iterator in Object(obj);
 };
