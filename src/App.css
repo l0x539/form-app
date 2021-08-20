@@ -63,6 +63,7 @@ input[type=checkbox] {}
     width: 768px;
     max-width: calc(100vw - 6rem);
     margin: 2rem auto;
+    user-select: none;
     /* 20% for representation should be changed */
 }
 

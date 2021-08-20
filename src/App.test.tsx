@@ -14,7 +14,7 @@ test('renders Apply to all items in collection', () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders Apply to all items in collection', () => {
+test('renders Apply to specific items', () => {
   render(<App />);
   const linkElement = screen.getByText(/Apply to specific items/i);
   expect(linkElement).toBeInTheDocument();
